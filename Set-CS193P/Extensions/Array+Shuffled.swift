@@ -9,6 +9,10 @@
 import Foundation
 
 extension Array {
+
+    /**
+     * Shuffles the self array
+     */
     mutating func shuffle() {
         guard count > 1 else { return }
         var last = count - 1

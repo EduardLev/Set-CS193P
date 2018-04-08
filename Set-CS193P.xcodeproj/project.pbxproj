@@ -15,7 +15,7 @@
 		D41625452076ABFD00313E16 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41625442076ABFD00313E16 /* Card.swift */; };
 		D41625472076AC8C00313E16 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41625462076AC8C00313E16 /* Set.swift */; };
 		D416254E2076CE1A00313E16 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416254D2076CE1A00313E16 /* Int+Random.swift */; };
-		D41625502076D16800313E16 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416254F2076D16800313E16 /* Enumerations.swift */; };
+		D41625502076D16800313E16 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416254F2076D16800313E16 /* Constants.swift */; };
 		D42154FB20770EC300A5EF88 /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42154FA20770EC300A5EF88 /* Array+Shuffled.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,7 @@
 		D41625442076ABFD00313E16 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D41625462076AC8C00313E16 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		D416254D2076CE1A00313E16 /* Int+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
-		D416254F2076D16800313E16 /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
+		D416254F2076D16800313E16 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D42154FA20770EC300A5EF88 /* Array+Shuffled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Shuffled.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +114,7 @@
 		D41625512076D16F00313E16 /* Customizable */ = {
 			isa = PBXGroup;
 			children = (
-				D416254F2076D16800313E16 /* Enumerations.swift */,
+				D416254F2076D16800313E16 /* Constants.swift */,
 			);
 			path = Customizable;
 			sourceTree = "<group>";
@@ -196,7 +196,7 @@
 				D41625452076ABFD00313E16 /* Card.swift in Sources */,
 				D42154FB20770EC300A5EF88 /* Array+Shuffled.swift in Sources */,
 				D41625302076ABBB00313E16 /* AppDelegate.swift in Sources */,
-				D41625502076D16800313E16 /* Enumerations.swift in Sources */,
+				D41625502076D16800313E16 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +343,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3987LS8PQB;
 				INFOPLIST_FILE = "Set-CS193P/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -361,6 +362,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3987LS8PQB;
 				INFOPLIST_FILE = "Set-CS193P/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

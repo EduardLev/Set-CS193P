@@ -66,54 +66,81 @@ struct SetGame {
         }
     }
 
-    mutating func toggleSelection(of card: Card) -> (toggled: Bool, set: Bool?)? {
-        guard !cardsMatched.contains(card) else { return nil }
+    /**
+     Updates the user three-card selection & returns a Bool describing whether or not
+     the selection that the user made corresponds to a Set.
 
-        // if there are selected cards, and the cards matched contains
-        // one of the selected cards, that means that the selected cards
-        // have been involved in a match.
-        // therefore remove the selected cards from the cards shown,
-        // remove the selected cards, and add 3 new cards (if possible) to the cards shown.
-        if let oneSelectedCard = selectedCards.first {
-            if cardsMatched.contains(oneSelectedCard) {
-                for selectedCard in selectedCards {
-                    actualDeck.remove(selectedCard)
-                    replaceCard(card: selectedCard)
-                    selectedCards.remove(at: selectedCards.index(of: selectedCard)!)
-                }
-                return nil
-            }
+     This will update the model `selectedCards` array, and then call
+     a helper function to check whether or not a Set is made, since
+     this action must occur any time a user inputs a selection of three cards.
+
+     - parameter indexes: The indexes in the cardsShown array that correspond
+     to the cards that the user has selected as a guess for a Set match.
+    */
+    mutating func inputSelectionWith(indexes: [Int]) -> Bool {
+        // first, update the selectedCards array
+        for index in indexes {
+            assert(index < cardsShown.count, "SetGame, inputSelectionWith:, index > cardsShown")
+            selectedCards.append(cardsShown[index])
         }
 
-        if selectedCards.count == 3 {
-            selectedCards.removeAll()
-        }
-
-        if let index = selectedCards.index(of: card) {
-            selectedCards.remove(at: index)
-            return (false, nil)
+        // once the selected cards have been chosen, check if they are a set
+        // if they are, do some actions that move around cards into the correct
+        // arrays in the model
+        if checkForSet() {
+            updateGameForASetFoundAt(indexes: indexes)
+            return true
         } else {
-            selectedCards.append(card)
-            if selectedCards.count == 3 {
-                if checkForSet() {
-                    cardsMatched += selectedCards
-                    return (true, true)
+            selectedCards.removeAll()
+            return false
+        }
+    }
+
+    private mutating func updateGameForASetFoundAt(indexes: [Int]) {
+        // Cards cannot be popped from actualDeck until all the selected
+        // cards have been removed. Otherwise there would be duplicates.
+        for card in selectedCards {
+            if actualDeck.count > 0 { actualDeck.remove(card) }
+        }
+
+        // also need to remove the card from cardsShown, actualDeck, and selected Cards
+        for card in selectedCards {
+            cardsMatched.append(card)
+            if let selectedCardIndex = cardsShown.index(of: card) {
+                if actualDeck.count > 0 {
+                    cardsShown.insert(actualDeck.popFirst()!, at: selectedCardIndex)
+                    cardsShown.remove(at: selectedCardIndex + 1)
                 } else {
-                    return (true, false)
+                    cardsShown.remove(at: selectedCardIndex)
                 }
             }
+            selectedCards.remove(at: selectedCards.index(of: card)!)
         }
-        return (true, nil)
+
+        if cardsShown.count == 0 {
+            resetGame()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "gameDidEnd"),
+                                            object: nil)
+        }
     }
 
-    mutating func replaceCard(card: Card) {
-        if let index = cardsShown.index(of: card) {
-            cardsShown.remove(at: index)
-            cardsShown.insert(actualDeck.popFirst()!, at: index)
-        }
+    /*
+     Sets self to point to a new initialized game of Set
+     */
+    private mutating func resetGame() {
+        self = SetGame()
     }
 
-    func checkForSet() -> Bool {
+    /**
+     Checks if the three cards in the `selectedCards` array are a Set.
+     Returns true/false based on the check
+
+     This function takes advantage of the fact that, for cards involved in a set,
+     the added hashvalues only contain numbers that are divisible by 3 (0, 3 and 6).
+     This property arises out of the selection of 0, 1 and 2 for card properties,
+     as well as the hashValue function for Card.
+     */
+    private func checkForSet() -> Bool {
         // logic that checks if three cards in an array consist of a set
         var sum = 0
         for card in selectedCards {
@@ -127,6 +154,8 @@ struct SetGame {
     }
 
     mutating func addThreeCardsToPlay() {
+        guard actualDeck.count > 0 else { return }
+
         var addedCards = 0
         while addedCards < 3 {
             if actualDeck.count > 0 {
@@ -135,9 +164,6 @@ struct SetGame {
             }
         }
     }
-        
-    
-    
 }
 
 

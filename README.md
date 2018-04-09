@@ -3,7 +3,7 @@ Stanford CS193P - Programming Assignment II: Set
 
 # Description
 
-A solo game 'Set' built from scratch.
+A solo game 'Set' built from scratch for the second programming assignment in the Stanford CS193P course available through ITunes U.
 
 ## Using
 

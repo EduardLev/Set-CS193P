@@ -7,8 +7,10 @@ A solo game 'Set' built from scratch for the second programming assignment in th
 
 ## Using
 
+# Graphical Set
 ![Graphical Set](https://github.com/EduardLev/Set-CS193P/raw/master/GraphicalSetGif.gif)
 
+# Original Set
 ![Set](https://github.com/EduardLev/Set-CS193P/raw/master/Set-CS193P.gif)
 
 ## Acknowledgments

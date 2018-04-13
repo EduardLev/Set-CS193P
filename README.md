@@ -1,4 +1,4 @@
-# Set - CS193P
+# Set & Graphical Set - CS193P
 Stanford CS193P - Programming Assignment II: Set & Programming Assignment III: Graphical Set
 
 # Description

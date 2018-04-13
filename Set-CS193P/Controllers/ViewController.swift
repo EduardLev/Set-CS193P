@@ -12,16 +12,6 @@ class ViewController: UIViewController {
 
     // MARK: View Controller Properties
 
-    /// Array of UIButton that will show the game elements
-    @IBOutlet private var cardButtons: [UIButton]! {
-        didSet {
-            // update all cards to have rounded corners
-            for button in cardButtons {
-                button.layer.cornerRadius = 8.0
-            }
-        }
-    }
-
     /// Outlet for the Deal Three (3) Cards Button
     @IBOutlet weak var dealThreeCardsButton: UIButton!
 
@@ -31,20 +21,20 @@ class ViewController: UIViewController {
     /// Outlet for the Find A Set Button
     @IBOutlet weak var findASetButton: UIButton!
 
+    /// Outlet for the Set Board View
+    @IBOutlet weak var setBoardViewOutlet: SetBoardView!
+
     /// Holds references to the selected Buttons
     /// Once the count is three, asks the model whether the selection
     /// consists of a set or not, and draws the border accordingly
-    private var selectedButtons = [UIButton]() {
+    private var selectedViews = [SetCardView]() {
         didSet {
-            if selectedButtons.count == 3 {
-                setWasFound = checkIfSelectedButtonsFormASet()
-                selectedButtons.forEach { (button) in
-                    button.layer.borderColor =
-                        setWasFound ?
-                        UIColor.green.cgColor :
-                        UIColor.red.cgColor
-                    // disable button if a set was found!
-                    button.isEnabled = !setWasFound
+            if selectedViews.count == 3 {
+                setWasFound = checkIfSelectedViewsFormASet()
+                selectedViews.forEach { (setCardView) in
+                    setCardView.wasInvolvedInMatch = setWasFound
+                    // Disable Button if a set was found!
+                    setCardView.gestureRecognizers?.first?.isEnabled = false
                 }
             }
         }
@@ -59,6 +49,8 @@ class ViewController: UIViewController {
     /// Will record whether or not the three cards selected formed a Set
     private var setWasFound = false
 
+    private var selectedProperties: (Int, Int, Int, Int) = (-1, -1, -1, -1)
+
     // MARK: View Controller Lifecycle
 
     override func viewDidLoad() {
@@ -72,15 +64,9 @@ class ViewController: UIViewController {
     /// Calls the method `computerFindSet` to show a computer
     /// generated Set in the cards that are currently displayed.
     @IBAction func findASetButtonDidClick(_ sender: UIButton) {
-        selectedButtons.removeAll()
-        updateViewFromModel()
-        computerFindSet(startingIndex: 0)
-    }
-
-    /// Calls the view method handleTouchOf function
-    /// - parameter sender: The UIButton that the user selected
-    @IBAction func cardDidTouch(_ sender: UIButton) {
-        handleTouchOf(button: sender)
+        //selectedViews.removeAll()
+        //updateViewFromModel()
+        //computerFindSet(startingIndex: 0)
     }
 
     /// Restarts the game
@@ -117,82 +103,85 @@ class ViewController: UIViewController {
      Cards are drawn with no borders.
     */
     func updateViewFromModel() {
-        // Loop through all buttons in the collection view
-        for (index, button) in cardButtons.enumerated() {
-            if index < setGame.cardsShown.count {
-                let cardToDisplay = setGame.cardsShown[index]
-                let cardFaceString = createAttributedString(using: cardToDisplay)
-                button.setAttributedTitle(cardFaceString, for: .normal)
-                // Draws all buttons with no borders
-                button.layer.borderWidth = 0.0
-                showCardOnButton(button)
-            } else {
-                hideCard(from: button)
-            }
+        // Loop through all views and update
+        // first, clear the views
+        setBoardViewOutlet.setCardSubviews.removeAll()
+        for index in 0..<setGame.cardsShown.count {
+            let cardToDisplay = setGame.cardsShown[index]
+            let cardView = createCardView(using: cardToDisplay)
+            setBoardViewOutlet.setCardSubviews.append(cardView)
         }
     }
 
     /**
-     Enables button and draws a gray background so user can see it */
-    func showCardOnButton(_ button: UIButton) {
-        button.backgroundColor = grayBackgroundColor
-        button.isEnabled = true
-    }
-
-    /**
-     Disables button and draws a white background so it is hidden */
-    func hideCard(from button: UIButton) {
-        button.backgroundColor = .white
-        button.layer.borderWidth = 0.0
-        button.isEnabled = false
-        button.setAttributedTitle(NSAttributedString(string: ""), for: .normal)
+     Creates and returns a `SetCardView` by initializing, adding a tap gesture,
+     and configuring properties
+    */
+    private func createCardView(using card: Card) -> SetCardView {
+        let cardView = SetCardView()
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(handleTouchOfView(sender:)))
+        cardView.addGestureRecognizer(tapGesture)
+        (cardView.number, cardView.symbol, cardView.shading, cardView.color) = card.allProperties()
+        return cardView
     }
 
     /**
      Responds to a button being selected by the user. The input is the button that was
      touched by the user.
     */
-    func handleTouchOf(button: UIButton) {
-        // At this point, nothing new is yet selected.
-        // Therefore the `selectedButtons` array will only hold the buttons
-        // that had been previously selected. If these formed a set,
-        // `setWasFound` would be true, and false otherwise.
-        if selectedButtons.count == 3 {
-            replaceOrDeselectCards()
+    @objc func handleTouchOfView(sender: UITapGestureRecognizer) {
+        if let setCardView = sender.view as? SetCardView {
+            let selectedCardProperties = setCardView.allProperties
+            // now you can use 'setCardView' as the view
+            // At this point, nothing new is yet selected.
+            // Therefore the `selectedViews` array will only hold the views
+            // that had been previously selected. If these formed a set,
+            // `setWasFound` would be true, and false otherwise.
+            if selectedViews.count == 3 {
+                replaceOrDeselectCards()
+            }
+            toggleSelectionOfCardWithProperties(selectedCardProperties)
         }
-        toggleSelectionOfButton(button)
     }
 
-    func replaceOrDeselectCards() {
-        // no matter what, we're going to be deselecting the buttons that
-        // had already been selected.
-        selectedButtons.removeAll()
-        updateViewFromModel()
+    /**
+     Shuffles the `Card`s on screen when user rotates with two fingers.
+     Also removes all currently selected cards.
+    */
+    @IBAction func userDidRotate(_ sender: UIRotationGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            setGame.cardsShown.shuffle()
+            selectedViews.removeAll()
+            updateViewFromModel()
+        default: break
+        }
     }
 
     /**
      Removes all buttons from `selectedButtons` array and redraws the View.
-    */
-    func deselectCardsNotFormingASet() {
-        selectedButtons.removeAll()
+     */
+    func replaceOrDeselectCards() {
+        // no matter what, we're going to be deselecting the buttons that
+        // had already been selected.
+        selectedViews.removeAll()
         updateViewFromModel()
     }
 
     /**
-     Selects or deselects a button based on its previous state
+     Selects or deselects a `Card` based on its previous selection state
      */
-    func toggleSelectionOfButton(_ button: UIButton) {
-        if selectedButtons.contains(button) {
-            // removes selection border
-            button.layer.borderWidth = 0.0
-            // OK to force unwrap because we just checked that selectedButtons
-            // contains the button
-            selectedButtons.remove(at: selectedButtons.index(of: button)!)
-        } else {
-            // adds blue border for selection
-            button.layer.borderWidth = 3.0
-            button.layer.borderColor = UIColor.blue.cgColor
-            selectedButtons.append(button)
+    func toggleSelectionOfCardWithProperties(_ selectedCardProperties: (Int,Int,Int,Int)) {
+        if let index = setBoardViewOutlet.setCardSubviews.index(where: { $0.allProperties == selectedCardProperties } ) {
+            let setCardView = setBoardViewOutlet.setCardSubviews[index]
+            if selectedViews.contains(setBoardViewOutlet.setCardSubviews[index]) {
+                setCardView.isSelected = false
+                selectedViews.remove(at: selectedViews.index(of: setCardView)!)
+            } else {
+                setCardView.isSelected = true
+                selectedViews.append(setCardView)
+            }
         }
     }
 
@@ -201,10 +190,10 @@ class ViewController: UIViewController {
      sends the selected buttons to the Set Game. Returns a Bool if the
      user selection corresponds to a Set.
  */
-    func checkIfSelectedButtonsFormASet() -> Bool {
+    func checkIfSelectedViewsFormASet() -> Bool {
         var selectedCardIndexes = [Int]()
-        for button in selectedButtons {
-            if let selectedCardIndex = cardButtons.index(of: button) {
+        for setCardView in selectedViews {
+            if let selectedCardIndex = setBoardViewOutlet.setCardSubviews.index(of: setCardView) {
                 selectedCardIndexes.append(selectedCardIndex)
             }
         }
@@ -216,17 +205,12 @@ class ViewController: UIViewController {
     * as there are less than 24 cards currently being shown.
     */
     func dealThreeCards() {
-        let cardsShown = setGame.cardsShown.count
-        assert(cardsShown <= 24,
-               "ViewController, dealThreeCards(): `cardsShown` is greater than 24")
-
-        guard cardsShown < 24 else { return }
         setGame.addThreeCardsToPlay()
         updateViewFromModel()
     }
 
     /*
-    * Shows (as highlight) to the user a set that exists in the
+     Shows (as highlight) to the user a set that exists in the
      current view. If no set exists, will not highlight any cards.
 
      Loops through the buttons with a highlight to show the
@@ -251,32 +235,6 @@ class ViewController: UIViewController {
         }
  */
     }
-
-    /**
-     Returns an NSAttributedString object by taking the properties of the input `Card` object
-     and converting to a human readable string.
-
-     - parameter card: a `Card` instance.
-     */
-    private func createAttributedString(using card: Card)
-        -> NSAttributedString {
-            var attributes = [NSAttributedStringKey : Any]()
-            var cardText: String
-
-            attributes[.strokeColor] = colors[card.color] // color
-            cardText = String(repeating: shapes[card.symbol], count: card.number+1)
-
-            switch card.shading {
-                case 0: attributes[.strokeWidth] = -5.0
-                attributes[.foregroundColor] = (attributes[.strokeColor])
-                case 1: attributes[.foregroundColor] = colors[card.color].withAlphaComponent(0.30)
-                case 2: attributes[.strokeWidth] = 5.0
-                default: break
-            }
-            return NSAttributedString(string: cardText, attributes: attributes)
-    }
-
-
 
     // MARK: End Game Actions & Observers
 

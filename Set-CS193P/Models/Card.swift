@@ -27,6 +27,11 @@ struct Card: Equatable {
             && lhs.shading == rhs.shading
             && lhs.color == rhs.color
     }
+
+    /// Returns all card properties in this order: number, symbol, shading, color
+    func allProperties() -> (Int, Int, Int, Int) {
+        return (number, symbol, shading, color)
+    }
 }
 
 extension Card: Hashable {

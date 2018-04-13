@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Set_CS193P" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wK-Dc-mp9">
+                                <rect key="frame" x="638" y="974" width="110" height="30"/>
+                                <color key="backgroundColor" red="0.92549019607843142" green="0.40392156862745099" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="Xvf-Tp-aUR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="   Deal 3 Cards     ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="dealThreeCardsButtonDidTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dP5-xe-zmZ"/>
+                                    <action selector="dealThreeCardsButtonDidTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="yV8-Oq-8DS"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyM-5n-0fr" userLabel="Find A Set Button">
+                                <rect key="frame" x="20" y="974" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.92549019610000005" green="0.4039215686" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="59V-lc-hS6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Find A Set">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="findASetButtonDidClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="p1u-3l-jBD"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jpW-8I-3Zd">
+                                <rect key="frame" x="128" y="974" width="91" height="30"/>
+                                <color key="backgroundColor" red="0.92549019610000005" green="0.4039215686" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <viewLayoutGuide key="safeArea" id="Vvd-NY-zbS"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="  New Game  ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="newGameButtonDidTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eJw-aa-528"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOd-SY-zgp" userLabel="Set Cards View" customClass="SetBoardView" customModule="Set_CS193P" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="768" height="938"/>
+                                <subviews>
+                                    <view contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YLm-wc-eAx" customClass="SetCardView" customModule="Set_CS193P" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="320" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="symbol">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shading">
+                                                <integer key="value" value="0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="color">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="62Q-9e-m7m" appends="YES" id="46i-w9-kDL"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7wK-Dc-mp9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="8p7-c4-avo"/>
+                            <constraint firstItem="jpW-8I-3Zd" firstAttribute="leading" secondItem="gyM-5n-0fr" secondAttribute="trailing" constant="8" id="FHT-Kz-fxf"/>
+                            <constraint firstItem="gOd-SY-zgp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GBM-jq-OGP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gOd-SY-zgp" secondAttribute="trailing" id="Lwa-bF-vPe"/>
+                            <constraint firstItem="7wK-Dc-mp9" firstAttribute="top" secondItem="gOd-SY-zgp" secondAttribute="bottom" constant="16" id="Ssg-lO-mCB"/>
+                            <constraint firstItem="gOd-SY-zgp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UUe-5y-2qx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7wK-Dc-mp9" secondAttribute="bottom" constant="20" id="hQN-jS-a7X"/>
+                            <constraint firstItem="gyM-5n-0fr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="kTY-Xz-7pz"/>
+                            <constraint firstItem="jpW-8I-3Zd" firstAttribute="baseline" secondItem="gyM-5n-0fr" secondAttribute="baseline" id="kzu-NC-PR2"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gyM-5n-0fr" secondAttribute="trailing" constant="20" symbolic="YES" id="lLi-8a-QME"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gyM-5n-0fr" secondAttribute="bottom" constant="20" id="pny-48-vQI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7wK-Dc-mp9" secondAttribute="trailing" constant="20" id="psb-ST-m5v"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="dealThreeCardsButton" destination="7wK-Dc-mp9" id="0mU-lp-hlc"/>
+                        <outlet property="findASetButton" destination="gyM-5n-0fr" id="Abh-he-GmT"/>
+                        <outlet property="newGameButton" destination="jpW-8I-3Zd" id="SJE-jN-pTF"/>
+                        <outlet property="setBoardViewOutlet" destination="gOd-SY-zgp" id="W6q-Fb-Eb0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <rotationGestureRecognizer id="62Q-9e-m7m">
+                    <connections>
+                        <action selector="userDidRotate:" destination="BYZ-38-t0r" id="5Fm-tx-wle"/>
+                    </connections>
+                </rotationGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="31.773399014778327"/>
+        </scene>
+    </scenes>
+</document>

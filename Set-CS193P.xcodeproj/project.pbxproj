@@ -17,6 +17,9 @@
 		D416254E2076CE1A00313E16 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416254D2076CE1A00313E16 /* Int+Random.swift */; };
 		D41625502076D16800313E16 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D416254F2076D16800313E16 /* Constants.swift */; };
 		D42154FB20770EC300A5EF88 /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42154FA20770EC300A5EF88 /* Array+Shuffled.swift */; };
+		D4CA3714207D874500D21099 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CA3713207D874500D21099 /* Grid.swift */; };
+		D4CA3716207D8CF900D21099 /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CA3715207D8CF900D21099 /* SetCardView.swift */; };
+		D4CA3718207D8FDF00D21099 /* SetBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CA3717207D8FDF00D21099 /* SetBoardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		D416254D2076CE1A00313E16 /* Int+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
 		D416254F2076D16800313E16 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D42154FA20770EC300A5EF88 /* Array+Shuffled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Shuffled.swift"; sourceTree = "<group>"; };
+		D4CA3713207D874500D21099 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		D4CA3715207D8CF900D21099 /* SetCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardView.swift; sourceTree = "<group>"; };
+		D4CA3717207D8FDF00D21099 /* SetBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,8 @@
 				D41625422076ABD500313E16 /* Models */,
 				D41625412076ABCC00313E16 /* Controllers */,
 				D41625432076ABE600313E16 /* Views */,
+				D41625332076ABBB00313E16 /* Main.storyboard */,
+				D41625382076ABBB00313E16 /* LaunchScreen.storyboard */,
 				D41625362076ABBB00313E16 /* Assets.xcassets */,
 				D416253B2076ABBB00313E16 /* Info.plist */,
 			);
@@ -89,6 +97,7 @@
 			children = (
 				D41625442076ABFD00313E16 /* Card.swift */,
 				D41625462076AC8C00313E16 /* Set.swift */,
+				D4CA3713207D874500D21099 /* Grid.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -96,8 +105,8 @@
 		D41625432076ABE600313E16 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D41625332076ABBB00313E16 /* Main.storyboard */,
-				D41625382076ABBB00313E16 /* LaunchScreen.storyboard */,
+				D4CA3715207D8CF900D21099 /* SetCardView.swift */,
+				D4CA3717207D8FDF00D21099 /* SetBoardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,6 +202,9 @@
 				D41625472076AC8C00313E16 /* Set.swift in Sources */,
 				D41625322076ABBB00313E16 /* ViewController.swift in Sources */,
 				D416254E2076CE1A00313E16 /* Int+Random.swift in Sources */,
+				D4CA3714207D874500D21099 /* Grid.swift in Sources */,
+				D4CA3718207D8FDF00D21099 /* SetBoardView.swift in Sources */,
+				D4CA3716207D8CF900D21099 /* SetCardView.swift in Sources */,
 				D41625452076ABFD00313E16 /* Card.swift in Sources */,
 				D42154FB20770EC300A5EF88 /* Array+Shuffled.swift in Sources */,
 				D41625302076ABBB00313E16 /* AppDelegate.swift in Sources */,
